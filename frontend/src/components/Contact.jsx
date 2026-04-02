@@ -46,7 +46,8 @@ const Contact = () => {
 
             const response = await axios.post(
                 `${BASE_URL}/api/contact`,
-                formData
+                formData,
+                { timeout: 15000 } // 15 second timeout
             );
 
             if (response.data.success) {
