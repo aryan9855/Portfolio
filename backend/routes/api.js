@@ -61,7 +61,11 @@ router.post('/contact', async (req, res) => {
         res.status(200).json({ success: true, message: 'Message sent successfully!' });
     } catch (error) {
         console.error('Nodemailer Error:', error);
-        res.status(500).json({ success: false, message: 'Failed to send message. Please try again later.' });
+        res.status(500).json({ 
+            success: false, 
+            message: 'Failed to send message.', 
+            debug: error.message 
+        });
     }
 });
 
