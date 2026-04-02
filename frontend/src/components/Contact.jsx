@@ -42,8 +42,7 @@ const Contact = () => {
         setStatus('loading');
 
         try {
-            // 🔥 USE ENV VARIABLE
-            const BASE_URL = import.meta.env.VITE_API_URL;
+            const BASE_URL = import.meta.env.VITE_API_URL || 'https://portfolio-backend-sesc.onrender.com';
 
             const response = await axios.post(
                 `${BASE_URL}/api/contact`,
