@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 // CORS configuration — allow your Vercel frontend + localhost for dev
 const allowedOrigins = [
-  'https://aryansinghal.vercel.app',
+  'https://portfolio-frontend-rose-nine-14.vercel.app',
   'http://localhost:5173',
   'http://localhost:3000',
 ];
