@@ -1,4 +1,11 @@
 import React, { useEffect, useRef } from 'react';
+import { 
+    Code, 
+    Sparkles, 
+    Layers, 
+    Terminal, 
+    ExternalLink 
+} from 'lucide-react';
 
 const Services = () => {
     const revealEls = useRef([]);
@@ -20,12 +27,27 @@ const Services = () => {
     }, []);
 
     const services = [
-        { num: '01', icon: 'FS', title: 'Full-Stack MERN', desc: 'Building production-grade applications with MongoDB, Express, React, and Node.js.' },
-        { num: '02', icon: 'AI', title: 'GenAI Solutions', desc: 'Integrating advanced LLMs like Llama 3.3 and Groq API for intelligent web simulations.' },
-        { num: '03', icon: 'SD', title: 'System Design', desc: 'Designing scalable, high-performance systems with efficient architectures, optimized load handling, and thoughtful engineering trade-offs.' },
+        { 
+            num: '01', 
+            icon: <Code size={24} strokeWidth={1.5} />, 
+            title: 'Full-Stack MERN', 
+            desc: 'Building production-grade applications with MongoDB, Express, React, and Node.js.' 
+        },
+        { 
+            num: '02', 
+            icon: <Sparkles size={24} strokeWidth={1.5} />, 
+            title: 'GenAI Solutions', 
+            desc: 'Integrating advanced LLMs like Llama 3.3 and Groq API for intelligent web simulations.' 
+        },
+        { 
+            num: '03', 
+            icon: <Layers size={24} strokeWidth={1.5} />, 
+            title: 'System Design', 
+            desc: 'Designing scalable, high-performance systems with efficient architectures, optimized load handling, and thoughtful engineering trade-offs.' 
+        },
         {
             num: '04',
-            icon: 'PS',
+            icon: <Terminal size={24} strokeWidth={1.5} />,
             title: 'Problem Solving',
             desc: 'Mastering DSA and System Design to optimize performance and solve complex engineering challenges.',
             links: [
@@ -54,7 +76,7 @@ const Services = () => {
                             <div className="service-links">
                                 {service.links.map((link) => (
                                     <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="service-link">
-                                        {link.name} {'->'}
+                                        {link.name} <ExternalLink size={12} className="inline ml-1" />
                                     </a>
                                 ))}
                             </div>
