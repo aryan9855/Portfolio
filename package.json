@@ -4,6 +4,7 @@
   "description": "Premium React Portfolio with Gmail Contact Backend",
   "scripts": {
     "start": "node backend/server.js",
+    "postinstall": "cd backend && npm install --production",
     "server": "node backend/server.js",
     "client": "npm run dev --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
