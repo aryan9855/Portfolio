@@ -1,41 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-
-const DEFAULT_API_URL = 'https://portfolio-production-e459.up.railway.app';
-const getApiBaseUrl = () => {
-    if (typeof window !== 'undefined') {
-        const { hostname } = window.location;
-        if (hostname === 'localhost' || hostname === '127.0.0.1') {
-            return '';
-        }
-    }
-
-    const configuredUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, '');
-    return configuredUrl || DEFAULT_API_URL;
-};
-
-const submitContactForm = async (baseUrl, payload) => {
-    const normalizedBaseUrl = baseUrl.replace(/\/$/, '');
-    return axios.post(`${normalizedBaseUrl}/api/contact`, payload, { timeout: 30000 });
-};
-
-const getFriendlyErrorMessage = (error) => {
-    const status = error.response?.status;
-
-    if (status >= 500) {
-        return 'The contact service is temporarily unavailable. Please try again in a moment or email me directly below.';
-    }
-
-    if (status === 400) {
-        return error.response?.data?.message || 'Please check the form details and try again.';
-    }
-
-    if (error.code === 'ECONNABORTED') {
-        return 'The request timed out. Please try again.';
-    }
-
-    return 'Unable to send the message right now. Please try again or email me directly below.';
-};
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
     const revealEls = useRef([]);
@@ -78,50 +42,56 @@ const Contact = () => {
         setErrorMessage('');
         setStatus('loading');
 
-        const payload = {
-            name: formData.name.trim(),
-            email: formData.email.trim(),
+        // EmailJS Configuration from environment variables
+        const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+        const ADMIN_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID_ADMIN;
+        const VISITOR_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID_VISITOR;
+        const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+        if (!SERVICE_ID || !PUBLIC_KEY) {
+            console.error('EmailJS credentials missing');
+            setStatus('error');
+            setErrorMessage('Email service is not configured correctly. Please email me directly below.');
+            return;
+        }
+
+        const templateParams = {
+            from_name: formData.name.trim(),
+            from_email: formData.email.trim(),
             subject: formData.subject.trim(),
-            message: formData.message.trim()
+            message: formData.message.trim(),
+            to_name: 'Aryan', // Used in visitor template
         };
 
         try {
-            const baseUrl = getApiBaseUrl();
-            let response;
+            // 1. Send Notification to Admin
+            const adminPromise = emailjs.send(
+                SERVICE_ID,
+                ADMIN_TEMPLATE_ID,
+                templateParams,
+                PUBLIC_KEY
+            );
 
-            try {
-                response = await submitContactForm(baseUrl, payload);
-            } catch (error) {
-                const shouldRetryHostedApi =
-                    baseUrl === '' &&
-                    error.response?.status === 502;
+            // 2. Send Auto-Reply to Visitor (if template ID provided)
+            const visitorPromise = VISITOR_TEMPLATE_ID 
+                ? emailjs.send(SERVICE_ID, VISITOR_TEMPLATE_ID, templateParams, PUBLIC_KEY)
+                : Promise.resolve();
 
-                if (!shouldRetryHostedApi) {
-                    throw error;
-                }
+            await Promise.all([adminPromise, visitorPromise]);
 
-                response = await submitContactForm(DEFAULT_API_URL, payload);
-            }
+            setStatus('success');
+            setFormData({
+                name: '',
+                email: '',
+                subject: '',
+                message: ''
+            });
 
-            if (response.data.success) {
-                setStatus('success');
-                setFormData({
-                    name: '',
-                    email: '',
-                    subject: '',
-                    message: ''
-                });
-
-                setTimeout(() => setStatus('idle'), 5000);
-            } else {
-                setStatus('error');
-                setErrorMessage(response.data.debug || response.data.message || 'Something went wrong.');
-                setTimeout(() => setStatus('idle'), 5000);
-            }
+            setTimeout(() => setStatus('idle'), 5000);
         } catch (error) {
-            console.error('Submission error:', error);
+            console.error('EmailJS Error:', error);
             setStatus('error');
-            setErrorMessage(getFriendlyErrorMessage(error));
+            setErrorMessage('Unable to send the message right now. Please try again or email me directly below.');
             setTimeout(() => setStatus('idle'), 5000);
         }
     };
