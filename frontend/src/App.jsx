@@ -13,18 +13,16 @@ import { projects, experience, skills } from './data';
 
 function App() {
   return (
-    <>
+    <div id="top">
       <CustomCursor />
       <Navbar />
       <Hero />
-      
-      {/* MARQUEE */}
+
       <div className="marquee-strip">
         <div className="marquee-track">
           {['Full-Stack MERN', 'System Design', 'Data Structures', 'RESTful APIs', 'AI Integration', 'React.js', 'Node.js', 'MongoDB'].map((item, i) => (
             <span key={i} className="marquee-item">{item}</span>
           ))}
-          {/* Duplicate for infinite effect */}
           {['Full-Stack MERN', 'System Design', 'Data Structures', 'RESTful APIs', 'AI Integration', 'React.js', 'Node.js', 'MongoDB'].map((item, i) => (
             <span key={i + 10} className="marquee-item">{item}</span>
           ))}
@@ -38,7 +36,7 @@ function App() {
       <Testimonials />
       <Contact />
       <Footer />
-    </>
+    </div>
   );
 }
 

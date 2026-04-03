@@ -9,6 +9,7 @@ const Hero = () => {
         setTimeout(() => el.classList.add('visible'), i * 120);
       });
     };
+
     const timer = setTimeout(revealHero, 200);
     return () => clearTimeout(timer);
   }, []);
@@ -28,7 +29,7 @@ const Hero = () => {
         <p className="hero-desc reveal">I build production-grade MERN applications and GenAI-powered solutions. Currently at IIIT Kota, I focus on architecting scalable systems and solving complex problems with 900+ DSA success stories.</p>
         <div className="hero-actions reveal">
           <a href="#works" className="btn-primary">View My Work</a>
-          <a href="#contact" className="btn-secondary">Let's Talk →</a>
+          <a href="#contact" className="btn-secondary">Let's Talk {'->'}</a>
         </div>
       </div>
       <div className="hero-right">
@@ -56,3 +57,5 @@ const Hero = () => {
 };
 
 export default Hero;
+
+

@@ -398,7 +398,7 @@ nav {
 }
 
 .marquee-item::after {
-  content: '★';
+  content: '*';
   color: var(--accent);
   font-size: 12px;
   font-style: normal;

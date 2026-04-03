@@ -7,6 +7,7 @@ const Navbar = () => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 60);
         };
+
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -18,7 +19,7 @@ const Navbar = () => {
 
     return (
         <nav style={navStyle}>
-            <a href="#" className="nav-logo">Aryan Singhal</a>
+            <a href="#top" className="nav-logo">Aryan Singhal</a>
             <ul className="nav-links">
                 <li><a href="#works">Works</a></li>
                 <li><a href="#services">Services</a></li>

@@ -23,18 +23,18 @@ const getAutoReplyTemplate = (name) => {
         <div class="content">
             <p>Hey ${name},</p>
             <p>Thank you for reaching out! I've successfully received your message from my portfolio and wanted to let you know that I'm already looking into it.</p>
-            <p>I value every inquiry and will get back to you personally within the next 24–48 hours to discuss how we can build something great together.</p>
-            <p>In the meantime, feel free to check out some of my latest design experiments on Instagram or Dribbble.</p>
+            <p>I value every inquiry and will get back to you personally within the next 24-48 hours to discuss how we can build something great together.</p>
+            <p>In the meantime, you can explore more of my recent work on GitHub and LinkedIn.</p>
             <div class="signature">
                 Best regards,<br>
-                Aryan Singhal — Creative Developer
+                Aryan Singhal - Creative Developer
             </div>
         </div>
         <div class="footer">
-            <a href="#">X / Twitter</a>
-            <a href="#">LinkedIn</a>
-            <a href="#">Behance</a>
-            <p style="font-size: 11px; margin-top: 20px;">© 2024 Aryan Singhal. All rights reserved.</p>
+            <a href="https://github.com/aryan9855">GitHub</a>
+            <a href="https://linkedin.com/in/aryanlinked">LinkedIn</a>
+            <a href="mailto:aryanworkspace90@gmail.com">Email</a>
+            <p style="font-size: 11px; margin-top: 20px;">&copy; 2026 Aryan Singhal. All rights reserved.</p>
         </div>
     </div>
 </body>
