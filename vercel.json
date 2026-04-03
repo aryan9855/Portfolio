@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://your-backend-render-url.onrender.com/api/:path*"
+      "destination": "https://portfolio-production-e459.up.railway.app/api/:path*"
     }
   ]
 }

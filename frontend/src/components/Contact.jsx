@@ -42,7 +42,7 @@ const Contact = () => {
         setStatus('loading');
 
         try {
-            const BASE_URL = import.meta.env.VITE_API_URL || 'https://portfolio-backend-sesc.onrender.com';
+            const BASE_URL = import.meta.env.VITE_API_URL || 'https://portfolio-production-e459.up.railway.app';
 
             const response = await axios.post(
                 `${BASE_URL}/api/contact`,
