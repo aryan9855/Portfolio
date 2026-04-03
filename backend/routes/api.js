@@ -27,7 +27,7 @@ router.post('/contact', async (req, res) => {
     // 1. Notification to ADMIN (You)
     const adminMailOptions = {
         from: `"${name}" <${email}>`,
-        to: process.env.GMAIL_USER, 
+        to: process.env.GMAIL_USER,
         replyTo: email,
         subject: `[Portfolio Inquiry] ${subject || 'New Message'}`,
         text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
@@ -58,15 +58,15 @@ router.post('/contact', async (req, res) => {
             transporter.sendMail(adminMailOptions),
             transporter.sendMail(visitorMailOptions)
         ]);
-        
+
         console.log(`Success: Inquiry sent to Admin & Auto-Reply sent to ${email}`);
         res.status(200).json({ success: true, message: 'Message sent successfully!' });
     } catch (error) {
         console.error('Nodemailer Error:', error);
-        res.status(500).json({ 
-            success: false, 
-            message: 'Failed to send message.', 
-            debug: error.message 
+        res.status(500).json({
+            success: false,
+            message: 'Failed to send message.',
+            debug: error.message
         });
     }
 });
